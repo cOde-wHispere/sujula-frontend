@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# Sujula Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This project is the React frontend foundation for Sujula's Language, Currency, and Delivery Location integration.
 
-In the project directory, you can run:
+It ensures that every request sent to the Sujula backend automatically includes:
 
-### `npm start`
+* `Accept-Language`
+* `X-Currency`
+* `X-Latitude`
+* `X-Longitude`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The implementation follows the **Frontend Integration Guide** by centralizing request context and configuring a single Axios client with a request interceptor.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* React application bootstrapped with Create React App
+* Environment-based configuration
+* Global Request Context
+* Browser geolocation with fallback to default coordinates
+* Language and currency preference management
+* Persistent preferences using `localStorage`
+* Centralized Axios client
+* Automatic request headers for all API calls
+* Simple routing structure
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```text
+src/
+├── api/
+├── components/
+├── context/
+├── hooks/
+├── pages/
+├── routes/
+├── services/
+├── styles/
+├── App.jsx
+└── index.js
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Environment Variables
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Create a `.env` file (or copy `.env.example`) and configure:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```env
+REACT_APP_API_BASE_URL=https://api.sujula.com
+REACT_APP_DEFAULT_LANGUAGE=en
+REACT_APP_DEFAULT_CURRENCY=GMD
+REACT_APP_DEFAULT_LATITUDE=13.4549
+REACT_APP_DEFAULT_LONGITUDE=-16.5790
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Installation
 
-## Learn More
+Install dependencies:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Start the development server:
 
-### Code Splitting
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The application runs at:
 
-### Analyzing the Bundle Size
+```text
+http://localhost:3000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## Verification
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The implementation supports the following checks:
 
-### Advanced Configuration
+* Request headers include:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+  * `Accept-Language`
+  * `X-Currency`
+  * `X-Latitude`
+  * `X-Longitude`
+* Preferences persist after page refresh.
+* Browser geolocation updates the stored delivery location.
+* Default location is used if geolocation permission is denied.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Current Scope
 
-### `npm run build` fails to minify
+This repository implements the frontend integration foundation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Authentication and user preference synchronization (`PATCH /api/users/{id}/preferences`) will be integrated once the authentication module is available.
+
+---
+
+## License
+
+This project is intended for the Sujula platform.
