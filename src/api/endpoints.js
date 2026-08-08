@@ -1,6 +1,15 @@
-export const API_ENDPOINTS = {
-  USERS: "/api/users",
+const ENDPOINTS = {
+  landing: {
+    categories: "/api/categories",
+    promotions: "/api/promotions",
+    newArrivals: "/api/products/new-arrivals",
+    bestsellers: "/api/products/bestsellers",
+    search: "/api/products/search",
+  },
 
-  USER_PREFERENCES: (userId) =>
-    `/api/users/${userId}/preferences`,
+  cart: {
+    items: "/api/cart/items",
+  },
 };
+
+export default ENDPOINTS;

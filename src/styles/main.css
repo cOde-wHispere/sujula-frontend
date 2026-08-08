@@ -1,3 +1,13 @@
+@import "./landing.css";
+@import "./topNavbar.css";
+@import "./mainNavbar.css";
+@import "./deliveryLocation.css";
+@import "./cards.css";
+@import "./sections.css";
+@import "./sidebar.css";
+@import "./hero.css";
+@import "./components.css";
+
 * {
   margin: 0;
   padding: 0;
@@ -28,4 +38,128 @@ button,
 select {
   font-size: 16px;
   padding: 8px;
+}
+
+/* ===========================
+   TABLET
+=========================== */
+
+@media (max-width: 992px) {
+  .landing-layout {
+    flex-direction: column;
+  }
+
+  .main-navbar {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .main-navbar-left,
+  .main-navbar-center,
+  .main-navbar-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+
+  .navigation-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  main {
+    padding: 16px;
+  }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width: 768px) {
+  .top-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .contact-information {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .top-navbar-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .main-navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .main-navbar-left,
+  .main-navbar-center,
+  .main-navbar-right {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navigation-buttons {
+    flex-wrap: wrap;
+  }
+
+  .delivery-location-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .delivery-modal {
+    width: 95%;
+  }
+}
+
+/* ===========================
+   SMALL PHONES
+=========================== */
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .logo {
+    font-size: 22px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+  }
 }

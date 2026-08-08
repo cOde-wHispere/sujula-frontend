@@ -1,10 +1,13 @@
+import { useEffect } from "react";
 import { bindRequestContext } from "../../api/client";
 import { useRequestContext } from "../../context/RequestContext";
 
 export default function ApiContextBinder({ children }) {
   const context = useRequestContext();
 
-  bindRequestContext(() => context);
+  useEffect(() => {
+    bindRequestContext(() => context);
+  }, [context]);
 
   return children;
 }

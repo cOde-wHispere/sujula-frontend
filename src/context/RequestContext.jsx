@@ -1,66 +1,101 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 
 const RequestContext = createContext(null);
 
 const STORAGE_KEY = "sujula.requestContext";
 
 function loadInitialState() {
+  let stored = null;
+
   try {
-    const stored = JSON.parse(
+    stored = JSON.parse(
       localStorage.getItem(STORAGE_KEY) || "null"
     );
-
-    return {
-      language:
-        stored?.language ||
-        process.env.REACT_APP_DEFAULT_LANGUAGE,
-
-      currency:
-        stored?.currency ||
-        process.env.REACT_APP_DEFAULT_CURRENCY,
-
-      location:
-        stored?.location || {
-          lat: Number(process.env.REACT_APP_DEFAULT_LATITUDE),
-          lon: Number(process.env.REACT_APP_DEFAULT_LONGITUDE),
-        },
-    };
-  } catch {
-    return {
-      language: process.env.REACT_APP_DEFAULT_LANGUAGE,
-      currency: process.env.REACT_APP_DEFAULT_CURRENCY,
-      location: {
-        lat: Number(process.env.REACT_APP_DEFAULT_LATITUDE),
-        lon: Number(process.env.REACT_APP_DEFAULT_LONGITUDE),
-      },
-    };
+  } catch (error) {
+    console.warn(
+      "Unable to read saved request context.",
+      error
+    );
   }
+
+  return {
+    language:
+      stored?.language ||
+      process.env.REACT_APP_DEFAULT_LANGUAGE ||
+      "en",
+
+    currency:
+      stored?.currency ||
+      process.env.REACT_APP_DEFAULT_CURRENCY ||
+      "USD",
+
+    deliveryAddress:
+      stored?.deliveryAddress || "",
+
+    deliveryLatitude:
+      stored?.deliveryLatitude ??
+      Number(
+        process.env.REACT_APP_DEFAULT_LATITUDE
+      ),
+
+    deliveryLongitude:
+      stored?.deliveryLongitude ??
+      Number(
+        process.env.REACT_APP_DEFAULT_LONGITUDE
+      ),
+  };
 }
 
-export function RequestContextProvider({ children }) {
-  const [state, setState] = useState(loadInitialState);
+export function RequestContextProvider({
+  children,
+}) {
+  const [state, setState] =
+    useState(loadInitialState);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+    );
   }, [state]);
 
-  const setLanguage = (language) =>
-    setState((prev) => ({
-      ...prev,
-      language,
-    }));
+  const setLanguage = useCallback(
+    (language) => {
+      setState((previous) => ({
+        ...previous,
+        language,
+      }));
+    },
+    []
+  );
 
-  const setCurrency = (currency) =>
-    setState((prev) => ({
-      ...prev,
-      currency,
-    }));
+  const setCurrency = useCallback(
+    (currency) => {
+      setState((previous) => ({
+        ...previous,
+        currency,
+      }));
+    },
+    []
+  );
 
-  const setLocation = (location) =>
-    setState((prev) => ({
-      ...prev,
-      location,
-    }));
+  const setDeliveryLocation = useCallback(
+    ({ address, latitude, longitude }) => {
+      setState((previous) => ({
+        ...previous,
+        deliveryAddress: address,
+        deliveryLatitude: latitude,
+        deliveryLongitude: longitude,
+      }));
+    },
+    []
+  );
 
   return (
     <RequestContext.Provider
@@ -68,7 +103,7 @@ export function RequestContextProvider({ children }) {
         ...state,
         setLanguage,
         setCurrency,
-        setLocation,
+        setDeliveryLocation,
       }}
     >
       {children}
@@ -77,11 +112,12 @@ export function RequestContextProvider({ children }) {
 }
 
 export function useRequestContext() {
-  const context = useContext(RequestContext);
+  const context =
+    useContext(RequestContext);
 
   if (!context) {
     throw new Error(
-      "useRequestContext must be used inside RequestContextProvider."
+      "useRequestContext must be used within RequestContextProvider"
     );
   }
 

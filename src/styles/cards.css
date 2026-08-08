@@ -1,0 +1,156 @@
+.card-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(220px, 1fr));
+
+  gap: 20px;
+}
+
+/* Standard cards */
+
+.category-card,
+.product-card,
+.promotion-card {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  padding: 16px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  gap: 12px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.category-card:hover,
+.product-card:hover,
+.promotion-card:hover {
+  transform: translateY(-3px);
+
+  border-color: #d1d5db;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.category-card h3,
+.product-card h3,
+.promotion-card h3 {
+  margin: 0;
+
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+/* Interactive category card */
+
+.category-card-button {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  padding: 16px;
+
+  text-align: left;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #111827;
+
+  cursor: pointer;
+
+  gap: 10px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.category-card-button:hover {
+  transform: translateY(-3px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.category-card-button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.25);
+  outline-offset: 2px;
+}
+
+.category-card-button h3 {
+  margin: 0;
+}
+
+/* Images */
+
+.image-placeholder {
+  height: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f5f7fa;
+
+  border-radius: 6px;
+
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.product-price {
+  margin: 4px 0;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #0d6efd;
+}
+
+.product-actions {
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: auto;
+}
+
+.product-actions button {
+  flex: 1;
+}
+
+.product-card-error {
+  margin: 0;
+
+  color: #b91c1c;
+
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .product-actions {
+    flex-direction: column;
+  }
+
+  .product-actions button {
+    width: 100%;
+  }
+}

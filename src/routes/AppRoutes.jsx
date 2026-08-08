@@ -1,15 +1,29 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+  Routes,
+  Route,
+} from "react-router-dom";
 
-import HomePage from "../pages/Home/HomePage";
+import LandingPage from "../pages/LandingPage/LandingPage";
+import SearchResultsPage from "../pages/SearchResults/SearchResultsPage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 
 export default function AppRoutes() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path="/"
+        element={<LandingPage />}
+      />
+
+      <Route
+        path="/search"
+        element={<SearchResultsPage />}
+      />
+
+      <Route
+        path="*"
+        element={<NotFoundPage />}
+      />
+    </Routes>
   );
 }
