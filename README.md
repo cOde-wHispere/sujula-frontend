@@ -2,111 +2,92 @@
 
 ## Overview
 
-This project is the React frontend foundation for Sujula's Language, Currency, and Delivery Location integration.
+Sujula Frontend is a React marketplace application for the Sujula platform.
 
-It ensures that every request sent to the Sujula backend automatically includes:
+The current implementation focuses on the **marketplace landing page** and the frontend integration required to manage:
 
-* `Accept-Language`
-* `X-Currency`
-* `X-Latitude`
-* `X-Longitude`
+- Language
+- Currency
+- Delivery location
+- Marketplace content
+- Product discovery
+- Cart interactions
 
-The implementation follows the **Frontend Integration Guide** by centralizing request context and configuring a single Axios client with a request interceptor.
+The frontend follows the **Sujula Frontend Integration Guide** by centralizing request context and configuring a single Axios client with a request interceptor.
 
----
+API requests automatically include the request-context headers required by the backend:
 
-## Features
-
-* React application bootstrapped with Create React App
-* Environment-based configuration
-* Global Request Context
-* Browser geolocation with fallback to default coordinates
-* Language and currency preference management
-* Persistent preferences using `localStorage`
-* Centralized Axios client
-* Automatic request headers for all API calls
-* Simple routing structure
-
----
-
-## Project Structure
-
-```text
-src/
-├── api/
-├── components/
-├── context/
-├── hooks/
-├── pages/
-├── routes/
-├── services/
-├── styles/
-├── App.jsx
-└── index.js
-```
-
----
-
-## Environment Variables
-
-Create a `.env` file (or copy `.env.example`) and configure:
-
-```env
-REACT_APP_API_BASE_URL=https://api.sujula.com
-REACT_APP_DEFAULT_LANGUAGE=en
-REACT_APP_DEFAULT_CURRENCY=GMD
-REACT_APP_DEFAULT_LATITUDE=13.4549
-REACT_APP_DEFAULT_LONGITUDE=-16.5790
-```
-
----
-
-## Installation
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm start
-```
-
-The application runs at:
-
-```text
-http://localhost:3000
-```
-
----
-
-## Verification
-
-The implementation supports the following checks:
-
-* Request headers include:
-
-  * `Accept-Language`
-  * `X-Currency`
-  * `X-Latitude`
-  * `X-Longitude`
-* Preferences persist after page refresh.
-* Browser geolocation updates the stored delivery location.
-* Default location is used if geolocation permission is denied.
+- `Accept-Language`
+- `X-Currency`
+- `X-Latitude`
+- `X-Longitude`
 
 ---
 
 ## Current Scope
 
-This repository implements the frontend integration foundation.
+The current implementation includes the marketplace landing page with:
 
-Authentication and user preference synchronization (`PATCH /api/users/{id}/preferences`) will be integrated once the authentication module is available.
+- Top utility navbar
+- Main navbar
+- Marketplace logo
+- Search
+- Explore navigation
+- Promotions navigation
+- Cart button
+- Delivery-location display
+- Delivery-location modal
+- Category sidebar
+- Hero section
+- Product categories
+- Promotions
+- New arrivals
+- Bestsellers
+- Product cards
+- Add-to-cart interaction
+- Footer
+- Currency selector
+- Language selector
+- Google Translate integration
+
+The following features are **outside the current scope**:
+
+- Authentication
+- Checkout
+- Order tracking
+- Seller dashboards
+- Wishlists
+- User account management
+- Full product detail pages
+- Full cart/checkout workflow
+- Production geocoding
 
 ---
 
-## License
+## Features
 
-This project is intended for the Sujula platform.
+### Marketplace Landing Page
+
+The landing page provides:
+
+- Hero marketplace section
+- Product category browsing
+- Promotional content
+- New-arrival products
+- Bestseller products
+- Product search
+- Add-to-cart actions
+- Responsive marketplace navigation
+
+### Request Context
+
+The application maintains global request context containing:
+
+```js
+{
+  currency,
+  language,
+  deliveryAddress,
+  deliveryLatitude,
+  deliveryLongitude
+}
