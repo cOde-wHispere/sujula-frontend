@@ -5,3 +5,48 @@ section {
 section h2 {
   margin-bottom: 20px;
 }
+.categories-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.categories-header {
+  margin-bottom: 2rem;
+}
+
+.categories-header-tag {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.categories-header h1 {
+  margin: 0 0 0.75rem;
+}
+
+.categories-header p {
+  max-width: 700px;
+  margin: 0;
+}
+
+.categories-grid-section {
+  margin-top: 2rem;
+}
+
+.categories-grid-section h2 {
+  margin-bottom: 1.25rem;
+}
+
+.categories-empty-state {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.categories-empty-state h2 {
+  margin-bottom: 0.75rem;
+}

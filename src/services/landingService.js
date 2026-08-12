@@ -1,6 +1,10 @@
 import { apiClient } from "../api/client";
 import ENDPOINTS from "../api/endpoints";
-import { getMockLandingData } from "../data/mockLandingData";
+
+import {
+  getMockLandingData,
+  searchMockProducts,
+} from "../data/mockLandingData";
 
 // Keep mock mode enabled until the backend is available.
 const USE_MOCK_DATA = true;
@@ -25,7 +29,9 @@ const landingService = {
     // FRONTEND DEVELOPMENT / MOCK MODE
     // ----------------------------------------
     if (USE_MOCK_DATA) {
-      return getMockLandingData(requestContext);
+      return getMockLandingData(
+        requestContext
+      );
     }
 
     // ----------------------------------------
@@ -85,21 +91,49 @@ const landingService = {
     };
   },
 
-  async searchProducts(query) {
-    if (USE_MOCK_DATA) {
+  async searchProducts({
+    query,
+    currency = "USD",
+    latitude = null,
+    longitude = null,
+  }) {
+    const normalizedQuery =
+      String(query || "").trim();
+
+    if (!normalizedQuery) {
       return [];
     }
 
+    const requestContext = {
+      q: normalizedQuery,
+      currency: String(currency).toUpperCase(),
+      latitude,
+      longitude,
+    };
+
+    // ----------------------------------------
+    // FRONTEND DEVELOPMENT / MOCK MODE
+    // ----------------------------------------
+    if (USE_MOCK_DATA) {
+      return searchMockProducts({
+        query: normalizedQuery,
+        currency: requestContext.currency,
+      });
+    }
+
+    // ----------------------------------------
+    // BACKEND MODE
+    // ----------------------------------------
     const response = await apiClient.get(
       ENDPOINTS.landing.search,
       {
-        params: {
-          q: query,
-        },
+        params: requestContext,
       }
     );
 
-    return response.data;
+    return normalizeListResponse(
+      response.data
+    );
   },
 };
 

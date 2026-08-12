@@ -196,3 +196,49 @@ export async function getMockLandingData({
     ),
   };
 }
+
+export async function searchMockProducts({
+  query = "",
+  currency = "USD",
+}) {
+  await new Promise((resolve) => {
+    setTimeout(resolve, 300);
+  });
+
+  const normalizedQuery =
+    String(query).trim().toLowerCase();
+
+  if (!normalizedQuery) {
+    return [];
+  }
+
+  const allProducts = [
+    ...MOCK_CATALOG.newArrivals,
+    ...MOCK_CATALOG.bestsellers,
+  ];
+
+  const matchingProducts =
+    allProducts.filter((product) =>
+      product.name
+        .toLowerCase()
+        .includes(normalizedQuery)
+    );
+
+  const supportedCurrency =
+    MOCK_EXCHANGE_RATES[currency]
+      ? currency
+      : "USD";
+
+  console.info(
+    "[MOCK API] Product search",
+    {
+      query: normalizedQuery,
+      currency: supportedCurrency,
+    }
+  );
+
+  return formatProducts(
+    matchingProducts,
+    supportedCurrency
+  );
+}

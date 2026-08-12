@@ -54,7 +54,7 @@ export default function Footer() {
             Home
           </Link>
 
-          <Link to="/explore">
+          <Link to="/categories">
             Explore
           </Link>
 

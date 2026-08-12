@@ -11,7 +11,7 @@ export default function NavigationButtons() {
       <button
         type="button"
         className="button button-secondary"
-        onClick={() => navigate("/search")}
+        onClick={() => navigate("/explore")}
       >
         Explore
       </button>
@@ -19,7 +19,9 @@ export default function NavigationButtons() {
       <button
         type="button"
         className="button button-secondary"
-        onClick={() => navigate("/")}
+        onClick={() =>
+          navigate("/promotions")
+        }
       >
         Promotions
       </button>
