@@ -1,11 +1,13 @@
+import { useNavigate } from "react-router-dom";
+
 export default function CartButton() {
+  const navigate = useNavigate();
+
   return (
     <button
       type="button"
-      className="button button-secondary"
-      aria-label="Shopping cart"
-      disabled
-      title="Shopping cart will be available in a later phase"
+      className="button button-primary"
+      onClick={() => navigate("/cart")}
     >
       Cart
     </button>

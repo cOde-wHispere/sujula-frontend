@@ -4,6 +4,7 @@ import ENDPOINTS from "../api/endpoints";
 import {
   getMockLandingData,
   searchMockProducts,
+  getMockProductById,
 } from "../data/mockLandingData";
 
 // Keep mock mode enabled until the backend is available.
@@ -134,6 +135,50 @@ const landingService = {
     return normalizeListResponse(
       response.data
     );
+  },
+
+  async getProductById({
+    productId,
+    currency = "USD",
+    latitude = null,
+    longitude = null,
+  }) {
+    const normalizedProductId =
+      String(productId || "").trim();
+
+    if (!normalizedProductId) {
+      return null;
+    }
+
+    const requestContext = {
+      currency: String(currency).toUpperCase(),
+      latitude,
+      longitude,
+    };
+
+    // ----------------------------------------
+    // FRONTEND DEVELOPMENT / MOCK MODE
+    // ----------------------------------------
+    if (USE_MOCK_DATA) {
+      return getMockProductById({
+        productId: normalizedProductId,
+        currency: requestContext.currency,
+      });
+    }
+
+    // ----------------------------------------
+    // BACKEND MODE
+    // ----------------------------------------
+    const response = await apiClient.get(
+      `${ENDPOINTS.landing.products}/${encodeURIComponent(
+        normalizedProductId
+      )}`,
+      {
+        params: requestContext,
+      }
+    );
+
+    return response.data || null;
   },
 };
 

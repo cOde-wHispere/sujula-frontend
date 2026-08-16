@@ -13,12 +13,12 @@ function ProductCard({ product }) {
     useState(null);
 
   function handleViewProduct() {
-    if (!product?.name) {
+    if (!product?.id) {
       return;
     }
 
     navigate(
-      `/search?q=${encodeURIComponent(product.name)}`
+      `/products/${encodeURIComponent(product.id)}`
     );
   }
 
@@ -80,7 +80,7 @@ function ProductCard({ product }) {
           type="button"
           className="button button-secondary"
           onClick={handleViewProduct}
-          disabled={!product?.name}
+          disabled={!product?.id}
         >
           View
         </button>
